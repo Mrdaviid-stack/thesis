@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#app {
+  background-color: #f3f4f7;
+  font-family: 'Poppins', sans-serif;
+  color: #46444c;
+  height: 100%;
+  width: 100%;
+}
+
+.navbar-nav-collapse-padding {
+  padding-left: 45px!important;
+}
+
+.navbar-nav-collapse-border-style {
+  border-left: 1px solid;
+  border-left-style: dashed;
+}
+
+.dropzone-container-multiple {
+  height: 220px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid rgb(218, 208, 208);
+  border-style: dashed;
+  overflow: hidden;
+}
+
+.dropzone-container {
+  height: 220px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid rgb(218, 208, 208);
+  border-style: dashed;
+  overflow: hidden;
+}
+
+.dropzone-remove-btn {
+  position: absolute;
+  top: 5;
+  right: 5;
+}
+
+.img-banner {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+}
+
+.img-thumb {
+  height: 100%;
+  width: 50%;
+}
+
+.img-multi-thumb {
+  object-fit: contain;
+  height: 100%;
+  width: 100%;
+}
+
+.dropzone-thumb {
+  max-height: 200px;
+  max-width: 200px;
+  border: 2px solid rgb(218, 201, 201);
+  border-style: dashed;
+}
+
+.timeline{
+  position: relative;
+}
+
+.timeline li{
+  list-style: none;
+  float: left;
+  width: 18.6333%;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+ul:nth-child(1){
+  color: #4caf50;
+}
+
+.timeline li:before{
+  content: '';
+  width: 50px;
+  height: 50px;
+  border: 3px solid #4caf50;
+  border-radius: 50%;
+  display: block;
+  text-align: center;
+  line-height: 50px;
+  margin: 0 auto 10px auto;
+  background: #fff;
+  color: #000;
+  transition: all ease-in-out .3s;
+  cursor: pointer;
+}
+
+.timeline li:after{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: grey;
+  top: 25px;
+  left: -50%;
+  z-index: -999;
+  transition: all ease-in-out .3s;
+}
+
+.timeline li:first-child:after{
+  content: none;
+}
+.timeline li.active-tl{
+  color: #555555;
+}
+.timeline li.active-tl:before{
+  background: #4caf50;
+  color: #F1F1F1;
+}
+
+.timeline li.active-tl + li:after{
+  background: #4caf50;
+}

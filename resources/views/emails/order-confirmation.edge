@@ -1,0 +1,11 @@
+<ul>
+@each(product in products)
+    <li>
+        <p>{{ product.name }}</p>
+        <p>{{ product.color }} | {{ product.storage }}</p>
+    </li>
+@end
+</ul>
+
+<p>Downpayment: {{ totalAmount }}</p>
+<p>Reference: {{ reference }}</p>

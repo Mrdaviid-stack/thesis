@@ -1,0 +1,57 @@
+import BaseController from '../../Core/Controllers/base_controller.js';
+import type { HttpContext } from '@adonisjs/core/http'
+
+import Product from "../Models/product.js";
+import Category from '../Models/category.js';
+
+export default class ProductsController extends BaseController {
+
+    constructor() {
+        super({
+            model: Product,
+            path: "websites/products/products"
+        })
+    }
+
+    async index({ inertia }: HttpContext) {
+        return inertia.render("websites/products/products", {
+            datatable: await Product.all()
+        })
+    }
+
+    async form({ inertia, params }: HttpContext) {
+        const categories = await Category.all()
+        if (params.id) {
+            return inertia.render("websites/products/products_form", {
+                record: await Product.findOrFail(params.id),
+                categories: categories.map((category) => ({ value: category.id, label: category.name }))
+            })
+        }
+        return inertia.render("websites/products/products_form", {
+            record: {},
+            categories: categories.map((category) => ({ value: category.id, label: category.name }))
+        })
+    }
+
+    async store({ request, response, params }: HttpContext) {
+        let data = request.body()
+        
+        if (params.id) {
+            const record = await Product.findOrFail(params.id)
+            await record.merge(data).save()
+            return response.status(201).json({
+                success: true,
+                message: `successfully updated.`,
+            })
+        }
+
+        const record = await Product.create(data)
+        return response.status(200).json({
+            success: true,
+            message: `successfully added.`,
+            data: record
+        })
+    }
+
+
+}
