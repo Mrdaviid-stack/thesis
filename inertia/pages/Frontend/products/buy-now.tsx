@@ -29,7 +29,6 @@ interface ProductsProps {
 
 
 export default function Buynow(props: { product: ProductsProps[], asset_url: string }) {
-    console.log(props.product)
     const { setCart } = useStore()
     let user = Cookies.get('user')
 
@@ -124,6 +123,7 @@ export default function Buynow(props: { product: ProductsProps[], asset_url: str
                                 <div key={storage} className="form-check form-check-inline">
                                     <input key={storage} onChange={(e) => setProduct(prev => ({
                                         ...prev,
+                                        price: props.product.filter(item => item.storage == e.target.value)[0].price,
                                         storage: e.target.value,
                                     }))} className="form-check-input" type="radio" name="storage" value={storage}/>
                                     <label className="form-check-label">{ storage }</label>

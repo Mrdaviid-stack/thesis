@@ -45,13 +45,10 @@ interface PaymentProps {
 export default function Billing(props: { orders: OrdersProps[] }) {
     const { user } = useStore()
     const [paymentDetails, setPaymentDetails] = useState<PaymentProps>({ orderId: 0, paymentMethod: 'cash', amount: 0, status: 'completed', userId: user.id})
-    console.log(props.orders)
 
     useEffect(() => {
         setPaymentDetails(prevState => ({...prevState, orderId: props.orders[0].id, status: 'completed', amount: props.orders[0].totalAmount, userId: user.id}))
     }, [])
-
-    console.log(paymentDetails)
 
     const handlePurchase = () => {
         requestService({
@@ -59,14 +56,12 @@ export default function Billing(props: { orders: OrdersProps[] }) {
             method: "post",
             payload: paymentDetails
         }).then(response => {
-            console.log(response)
             Toast.fire({
                 icon: "success",
                 text: response.data.message
             })
             router.visit('/dashboard/cashiers/walk-in-orders')
-        }).catch(error => {
-            console.error(error)
+        }).catch(() => {
             setPaymentDetails(prevState => ({...prevState, amount: props.orders[0].totalAmount, status: 'failed'}))
         })
     }

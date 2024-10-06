@@ -28,8 +28,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({children, title}) => {
         }
     },[url])
 
-    console.log(breadcrumb.segments[0].route)
-
     const { user, hasAccess } = useStore()
 
     const token = Cookies.get('token')

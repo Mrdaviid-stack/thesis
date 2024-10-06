@@ -5,14 +5,12 @@ import { Toast } from "~/helpers/Toast"
 import { requestService } from "~/services/api.service"
 
 export default function OrderAknowledgements(props: {transactions: any}) {
-    console.log(props.transactions)
 
     const handleAcknowledge = (transactionId: number, status: string) => {
         requestService({
             url: `/dashboard/cashiers/order-acknowledgements/status/${transactionId}/${status}`,
             method: "put"
         }).then((response) => {
-            console.log('acknowledged')
             Toast.fire({
                 icon: "success",
                 text: response.data.message

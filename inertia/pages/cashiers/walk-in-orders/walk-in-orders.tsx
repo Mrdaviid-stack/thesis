@@ -66,7 +66,6 @@ export default function WalkInOrders(props: { products: ProductProps[] }) {
             }
         })
             .then(response => {
-                console.log(response)
                 MySwal.fire
                 ({
                     title: "Order saved!",

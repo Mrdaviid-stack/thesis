@@ -5,7 +5,6 @@ export default class PagesController {
 
     async index({ inertia }: HttpContext) {
         const pages = await Page.query().select('*').whereNull('deleted_at')
-        console.log(pages)
         return inertia.render('websites/pages/pages', {
             datatable: pages
         })

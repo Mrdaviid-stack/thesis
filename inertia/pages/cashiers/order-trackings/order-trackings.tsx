@@ -5,7 +5,6 @@ import { Toast } from "~/helpers/Toast"
 import { requestService } from "~/services/api.service"
 
 export default function OrderTrackings(props: {orders: any[]}) {
-    console.log(props.orders)
 
     const statuses = [
         {value: "pending", label: "Pending"},
@@ -21,7 +20,6 @@ export default function OrderTrackings(props: {orders: any[]}) {
             url: `/dashboard/cashiers/order-acknowledgements/status/${transactionId}/${status}`,
             method: "put"
         }).then((response) => {
-            console.log('acknowledged')
             Toast.fire({
                 icon: "success",
                 text: response.data.message

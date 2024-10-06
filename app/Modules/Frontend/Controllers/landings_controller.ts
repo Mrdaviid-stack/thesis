@@ -8,7 +8,9 @@ export default class LandingsController {
             const page = await Page.query().select('*').where('slug', params.slug).first()
             return inertia.render('Frontend/slug', { page })
         } 
-        return inertia.render('Frontend/landing')
+        return inertia.render('Frontend/landing', {
+            page: await Page.query().select('*').where('slug', 'home').first()
+        })
     }
 
 

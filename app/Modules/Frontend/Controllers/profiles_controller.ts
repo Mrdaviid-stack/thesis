@@ -8,7 +8,6 @@ export default class ProfilesController {
     }
 
     async orders({ response, params }: HttpContext) {
-        console.log(params)
         const orders = await Transaction.query()
             .preload('order', (order) => 
                     order.where('userId', params.id).preload('orderProducts', (orderProduct) => 

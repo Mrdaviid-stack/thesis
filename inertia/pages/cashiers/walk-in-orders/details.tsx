@@ -2,7 +2,6 @@ import { ReactNode } from "react"
 import MainLayout from "~/components/Layouts/main"
 
 export default function Details(props: { product: any }) {
-    console.log(props.product)
     return (
         <div className="details">
             <div className="card card-body">

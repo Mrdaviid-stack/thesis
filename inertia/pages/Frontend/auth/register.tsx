@@ -46,8 +46,7 @@ export default function Register() {
                     payload: values,
                     hasAttachment: true
                 })
-                    .then(response => {
-                        console.log(response)
+                    .then(() => {
                         //Cookie.set('token', response.data.token.headers.authorization.toString().split(' ')[1], { expires: 1/24 })
                         //Cookie.set('user', response.data.data)
                         Toast.fire({
@@ -57,7 +56,6 @@ export default function Register() {
                         router.visit('/shop/auth/login')
                     })
                     .catch(error => {
-                        console.log(error)
                         setError(error.response.data.errors[0].message)
                         actions.setSubmitting(false)
                     })

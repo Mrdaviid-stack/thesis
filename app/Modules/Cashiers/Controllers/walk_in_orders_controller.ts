@@ -25,8 +25,6 @@ export default class WalkInOrdersController {
     async saveOrder({request, response}: HttpContext) {
         const data = request.only(['id', 'qty', 'vat', 'price', 'user'])
 
-        console.log(data)
-
         const order = await Order.create({
             userId: data.user,
             totalAmount: data.price//((data.price * data.qty) / 100 * (100 + data.vat)),
@@ -67,7 +65,6 @@ export default class WalkInOrdersController {
 
     async payment({ request, response }: HttpContext) {
         const data = request.body()
-        console.log(data)
 
         const order = await Order.findOrFail(data.orderId)
         await order.merge({ userId: data.userId }).save()

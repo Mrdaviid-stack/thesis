@@ -8,7 +8,7 @@ export default function Slug(props: { page: any }) {
         <div className="slug">
             <Head title={props.page.name} />
             <div className="container py-5">
-                <div dangerouslySetInnerHTML={{__html: props.page.content}} />
+                <div dangerouslySetInnerHTML={{__html:  props.page === null ? '<h6>Add content in CMS</h6>' : props.page.content}} />
             </div>
         </div>
     )

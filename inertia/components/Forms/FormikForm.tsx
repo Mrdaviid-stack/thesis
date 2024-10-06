@@ -36,7 +36,6 @@ export const FormikForm: React.FC<FormikFormProps> = ({
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={async (values: any, actions: FormikHelpers<any>) => {
-                console.log(values)
                 const id = (values && values.id) ? values.id : '' 
                 const redirect = pageURL.split('/').slice(0, id ? -2 : -1).join('/').toString()
                 delete values.id

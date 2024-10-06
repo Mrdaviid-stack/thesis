@@ -35,8 +35,6 @@ export default function Order() {
         }).then(() => router.visit('/'))
     }
 
-    console.log(user)
-
     return (
         <div className="order pt-4" style={{ marginLeft: '5%', marginRight: '5%' }}>
             <div className="card card-body">
