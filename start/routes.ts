@@ -16,6 +16,7 @@ import FilesRouter from '../app/Modules/Files/Routes/routes.js'
 import CashiersRouter from '../app/Modules/Cashiers/Routes/routes.js'
 import FrontendRoute from '../app/Modules/Frontend/Routes/routes.js'
 import LandingsController from '../app/Modules/Frontend/Controllers/landings_controller.js'
+import ReportsRoute from '../app/Modules/Reports/Routes/routes.js'
 
 router.get('/', [LandingsController, 'index'])
 
@@ -30,6 +31,7 @@ router.group(() => {
     WebsitesRouter()
     FilesRouter()
     CashiersRouter()
+    ReportsRoute()
 }).prefix('dashboard')
 
 

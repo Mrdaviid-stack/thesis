@@ -59,6 +59,29 @@ export const navItems = [
         ]
     },
     {
+        permissions: 'reports-reports-view',
+        route: 'reports',
+        name: 'Reports',
+        icon: 'fa-chart-simple',
+        sub_item: [
+            {
+                permissions: 'reports-sales-view',
+                route: '/dashboard/reports/sales',
+                name: 'Sales',
+            },
+            {
+                permissions: 'reports-inventory-view',
+                route: '/dashboard/reports/inventories',
+                name: 'Inventories',
+            },
+            {
+                permissions: 'reports-replaced-view',
+                route: '/dashboard/reports/replaced',
+                name: 'Replaced Items',
+            },
+        ]
+    },
+    {
         permissions: 'admin-users-view',
         route: 'admin',
         name: 'Admin',

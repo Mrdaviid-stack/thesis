@@ -80,7 +80,26 @@ export default class extends BaseSeeder {
             { name: 'cashiers-walk_in_orders-add', description: 'Add walk in orders' },
             { name: 'cashiers-walk_in_orders-edit', description: 'Edit walk in orders' },
             { name: 'cashiers-walk_in_orders-delete', description: 'Delete walk in orders' },
-
+            //
+            { name: 'reports-reports-view', description: 'Reports' },
+            //
+            { name: 'reports-sales-view', description: 'View sales orders' },
+            { name: 'reports-sales-index', description: 'List sales orders' },
+            { name: 'reports-sales-add', description: 'Add sales orders' },
+            { name: 'reports-sales-edit', description: 'Edit sales orders' },
+            { name: 'reports-sales-delete', description: 'Delete sales orders' },
+            //
+            { name: 'reports-inventory-view', description: 'View inventory orders' },
+            { name: 'reports-inventory-index', description: 'List inventory orders' },
+            { name: 'reports-inventory-add', description: 'Add inventory orders' },
+            { name: 'reports-inventory-edit', description: 'Edit inventory orders' },
+            { name: 'reports-inventory-delete', description: 'Delete inventory orders' },
+            //
+            { name: 'reports-replaced-view', description: 'View replaced orders' },
+            { name: 'reports-replaced-index', description: 'List replaced orders' },
+            { name: 'reports-replaced-add', description: 'Add replaced orders' },
+            { name: 'reports-replaced-edit', description: 'Edit replaced orders' },
+            { name: 'reports-replaced-delete', description: 'Delete replaced orders' },
         ])
 
         await this.usersGroup()

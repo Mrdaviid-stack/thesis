@@ -5,7 +5,8 @@ interface RequestServiceProps {
     url: string;
     method: 'get' | 'post' | 'put' | 'delete' | 'patch';
     payload?: object;
-    hasAttachment?: boolean
+    hasAttachment?: boolean,
+    params?: object,
 }
 
 const apiInstance = axios.create({
@@ -25,9 +26,11 @@ export const requestService = async ({
     url,
     method,
     payload,
-    hasAttachment
+    hasAttachment,
+    params,
 }: RequestServiceProps) => {
     return apiInstance[method](url, payload, {
+        params: params,
         headers: {
             'Content-Type': !hasAttachment ? 'application/json' : 'multipart/form-data'
         }
