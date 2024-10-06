@@ -8,7 +8,7 @@ export default function Details(props: { product: any }) {
             <div className="card card-body">
                 <div className="d-flex justify-content-between align-items-center mb-5">
                     <h4>Product Details</h4>
-                    <a href={`/cashiers/walk-in-orders/billing/${props.product.id}`} className="btn btn-primary">Proceed to billing</a>
+                    <a href={`/dashboard/cashiers/walk-in-orders/billing/${props.product.id}`} className="btn btn-primary">Proceed to billing</a>
                 </div>
                 <ul className="list-group mb-3">
                     <li className="list-group-item"><b>Product Name: </b>{props.product.name}</li>

@@ -8,6 +8,7 @@ interface UserProps {
     lastname: string;
     email: string;
     address: string;
+    group: string;
 }
 
 interface IContext {
@@ -27,7 +28,7 @@ const StoreContext = createContext<IContext | undefined>(undefined)
 
 export const StoreProvider: React.FC<{children: ReactNode}> = ({ children }) => {
 
-    const [user, setUser] = useState<UserProps>({id: '', username: '', firstname: '', lastname: '', email: '', address: ''})
+    const [user, setUser] = useState<UserProps>({id: '', username: '', firstname: '', lastname: '', email: '', address: '', group: ''})
     const [cart, setCart] = useState<any>([])
     const [orders, setOrders] = useState<{}>({storage: '', color: '', ram: ''})
     const [compare, setCompare] = useState<any[]>([])

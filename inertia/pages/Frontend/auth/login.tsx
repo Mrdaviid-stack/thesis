@@ -1,6 +1,5 @@
-import { router } from "@inertiajs/react";
-import { Form, Formik, FormikHelpers } from "formik";
 import { ReactNode, useState } from "react";
+import { Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { Toast } from "~/helpers/Toast";
 import { requestService } from "~/services/api.service";
@@ -24,6 +23,7 @@ export default function Login() {
         <div className="d-flex justify-content-end w-25 ">
             <div className="card card-body d-flex w-25 position-absolute" style={{ top: '25%', left: '40%' }}>
             <h6>Sign in</h6>
+            <p>{error}</p>
             <Formik
                 initialValues={{
                     identity: '',
@@ -37,13 +37,22 @@ export default function Login() {
                         payload: values
                     })
                         .then(response => {
+                            if (JSON.parse(response.data.user)[0].group !== 'Customers') {
+                                Toast.fire({
+                                    icon: 'error',
+                                    text: 'You are not authorized to access this page.'
+                                })
+                                return
+                            }
                             Cookie.set('token', response.data.token.headers.authorization.toString().split(' ')[1], { expires: 1/24 })
                             Cookie.set('user', response.data.user)
-                            Toast.fire({
-                                icon: 'success',
-                                text: `Welcome ${JSON.parse(response.data.user)[0].username}`
-                            })
-                            router.visit('/shop')
+                            setTimeout(() => {
+                                Toast.fire({
+                                    icon: 'success',
+                                    text: `Welcome ${JSON.parse(response.data.user)[0].username}`
+                                })
+                                window.location.href = '/shop'
+                            }, 500)
                         })
                         .catch(error => {
                             setError(error.response.data.errors[0].message)

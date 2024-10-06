@@ -12,7 +12,7 @@ export default class extends BaseSchema {
       table.string('description')
 
       table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('updated_at').nullable()
     })
   }
 

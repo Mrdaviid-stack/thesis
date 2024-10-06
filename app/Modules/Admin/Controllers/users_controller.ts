@@ -65,6 +65,7 @@ export default class UsersController extends BaseController {
                     name: `${cuid()}.${image.extname}`
                 })
             }
+
             
             // merge latest data to old data
             await user.merge({
@@ -76,14 +77,32 @@ export default class UsersController extends BaseController {
                 image: image?.filePath?.split('\\').slice(-4).join('\\')
             }).save()
 
+            if (data.password) {
+                await user.merge({password: data.password}).save()
+            }
+
             // Sync user group.
-            user.related('groups').sync([parseInt(data.group)])
+            if (data.group) {
+                user.related('groups').sync([parseInt(data.group)])
+            }
             
+            const user_details = await User.query().where('id', user.id).preload('groups')
+
             return response
                 .status(201)
                 .json({
                     success: true,
-                    message: 'Successfully updated.'
+                    message: 'Successfully updated.',
+                    data: JSON.stringify(user_details.map(user => ({
+                        id: user.id,
+                        firstname: user.firstname,
+                        lastname: user.lastname,
+                        email: user.email,
+                        status: user.status,
+                        address: user.address,
+                        image: user.image,
+                        group: user.groups[0].name
+                    })))
                 })
         }
         // Store new user
@@ -112,13 +131,22 @@ export default class UsersController extends BaseController {
         // Save user group.
         await user.related('groups').sync([parseInt(data.group)])
 
-
+        const user_details = await User.query().where('id', user.id).preload('groups')
         return response
             .status(200)
             .json({
                 success: true,
                 message: 'Successfully added.',
-                data: user
+                data: JSON.stringify(user_details.map(user => ({
+                    id: user.id,
+                    firstname: user.firstname,
+                    lastname: user.lastname,
+                    email: user.email,
+                    status: user.status,
+                    address: user.address,
+                    image: user.image,
+                    group: user.groups[0].name
+                })))
             })
     }
 

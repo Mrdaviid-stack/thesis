@@ -24,7 +24,7 @@ export default function FrontendRoute()  {
 
     /////////////////////////////////////////////////////////
     router.get('/shops/profile', [ProfilesController, 'index'])
-    router.get('/shops/profile/orders/:id/:status', [ProfilesController, 'orders'])
+    router.get('/shops/profile/orders/:id', [ProfilesController, 'orders'])
 
     /////
     router.get('/auth/login', [AuthController, 'index'])

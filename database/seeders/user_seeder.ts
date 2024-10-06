@@ -19,7 +19,7 @@ export default class extends BaseSeeder {
         await Group.createMany([
             { name: 'Superadmin', description: 'All Access' },
             { name: 'Admin', description: 'Limited Access' },
-            { name: 'Custmer', description: 'Front Acccess' },
+            { name: 'Customers', description: 'Front Acccess' },
         ])
 
         await Permission.createMany([

@@ -59,7 +59,17 @@ export default function Buynow(props: { product: ProductsProps[] }) {
             router.visit('/shop/auth/login')
             return
         }
-        setCart((prev:any) => [...prev, product])
+        setCart((prev:any) => {
+            const isProductExists = prev.find((prod:ProductsProps) => prod.id === product.id);
+
+            if (isProductExists) {
+                return prev.map((prod: ProductsProps) => prod.id === product.id
+                    ? {...product, qty: product.qty + 1}
+                    : prod)
+            } else { 
+                return [...prev, product]
+            }
+        })
         requestService({
             url: '/shop/add-to-cart',
             method: 'post',

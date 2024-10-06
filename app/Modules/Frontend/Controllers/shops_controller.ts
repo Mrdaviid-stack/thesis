@@ -10,6 +10,7 @@ import Payment from '../../Websites/Models/payment.js'
 import Transaction from '../../Websites/Models/transaction.js'
 
 import mail from '@adonisjs/mail/services/main'
+import {nanoid} from 'nanoid'
 
 export default class ShopsController {
     async index({ inertia }: HttpContext) {
@@ -88,7 +89,6 @@ export default class ShopsController {
     async placedOrder({ request, response }: HttpContext) {
       
         const data = request.body()
-        console.log(data)
 
         const userOrder = await Order.create({
             userId: data.cart[0].user,
@@ -117,10 +117,11 @@ export default class ShopsController {
             reference: data.reference,
         })
 
-        await Transaction.create({
+        const transaction = await Transaction.create({
+            invoice: `INV-${nanoid()}`,
             orderId: userOrder.id,
             paymentId: payment.id,
-            source: 'onsite',
+            source: 'online',
             status: 'pending',
         })
 
@@ -128,7 +129,7 @@ export default class ShopsController {
             message
                .to(data.alternativeUserInfo.email ===null ? data.user.email : data.alternativeUserInfo.email)
                .from('admin@yourdomain.com')
-               .subject('Order Confirmation')
+               .subject(`${transaction.invoice}`)
                .htmlView('emails/order-confirmation', {
                     products: data.cart,
                     totalAmount: data.totalAmount,

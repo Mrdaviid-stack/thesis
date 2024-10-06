@@ -3,6 +3,7 @@ import { router } from "@inertiajs/react";
 import { ReactNode, useEffect, useState } from "react"
 
 import MainLayout from "~/components/Layouts/main"
+import { useStore } from "~/context/store";
 import { Toast } from "~/helpers/Toast";
 import { requestService } from "~/services/api.service";
 
@@ -38,21 +39,23 @@ interface PaymentProps {
     paymentMethod: string;
     amount: number;
     status: string;
+    userId: string;
 }
 
 export default function Billing(props: { orders: OrdersProps[] }) {
-    const [paymentDetails, setPaymentDetails] = useState<PaymentProps>({ orderId: 0, paymentMethod: '', amount: 0, status: 'completed' })
+    const { user } = useStore()
+    const [paymentDetails, setPaymentDetails] = useState<PaymentProps>({ orderId: 0, paymentMethod: 'cash', amount: 0, status: 'completed', userId: user.id})
     console.log(props.orders)
 
     useEffect(() => {
-        setPaymentDetails(prevState => ({...prevState, orderId: props.orders[0].id, status: 'completed', amount: props.orders[0].totalAmount}))
+        setPaymentDetails(prevState => ({...prevState, orderId: props.orders[0].id, status: 'completed', amount: props.orders[0].totalAmount, userId: user.id}))
     }, [])
 
     console.log(paymentDetails)
 
     const handlePurchase = () => {
         requestService({
-            url: "/cashiers/walk-in-orders/payment",
+            url: "/dashboard/cashiers/walk-in-orders/payment",
             method: "post",
             payload: paymentDetails
         }).then(response => {
@@ -61,10 +64,10 @@ export default function Billing(props: { orders: OrdersProps[] }) {
                 icon: "success",
                 text: response.data.message
             })
-            router.visit('/cashiers/walk-in-orders')
+            router.visit('/dashboard/cashiers/walk-in-orders')
         }).catch(error => {
             console.error(error)
-            //setPaymentDetails(prevState => ({...prevState, amount: props.orders[0].totalAmount, status: 'failed'}))
+            setPaymentDetails(prevState => ({...prevState, amount: props.orders[0].totalAmount, status: 'failed'}))
         })
     }
 

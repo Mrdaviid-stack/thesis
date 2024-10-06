@@ -17,7 +17,7 @@ export default class extends BaseSchema {
       table.float('total_amount')
 
       table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('updated_at').nullable()
     })
   }
 

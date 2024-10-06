@@ -9,10 +9,10 @@ export default class ProfilesController {
 
     async orders({ response, params }: HttpContext) {
         console.log(params)
-        const orders = await Transaction.query().where('status', params.status) 
+        const orders = await Transaction.query()
             .preload('order', (order) => 
-                    order.preload('orderProducts', (orderProduct) => 
-                        orderProduct.preload('products')).preload('user', (user) => user.where('id', params.id))).preload('payment')
+                    order.where('userId', params.id).preload('orderProducts', (orderProduct) => 
+                        orderProduct.preload('products')).preload('user')).preload('payment')
 
         return response.status(200).json({
             success: true,

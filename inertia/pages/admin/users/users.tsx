@@ -39,7 +39,7 @@ export default function Users(props: { datatable: IDataTable[] }) {
     ]
 
     // handle update status
-    const onUpdate = (data: any) => requestService({url:`/admin/users/update/status/${data.row.id}`, method: "patch"})
+    const onUpdate = (data: any) => requestService({url:`/dashboard/admin/users/update/status/${data.row.id}`, method: "patch"})
         .then(response => {
             Toast.fire({
                 icon: 'success',

@@ -18,7 +18,7 @@ export default class extends BaseSchema {
       table.boolean('is_primary')
 
       table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('updated_at').nullable()
     })
   }
 

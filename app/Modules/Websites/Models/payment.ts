@@ -12,7 +12,7 @@ export default class Payment extends BaseModel {
   declare orderId: number
 
   @column()
-  declare paymentMethod: 'credit_card'|'paypal'|'cod'|'gcash'|'paymaya'
+  declare paymentMethod: 'credit_card'|'paypal'|'cod'|'gcash'|'paymaya'|'cash'
 
   @column()
   declare amount: number

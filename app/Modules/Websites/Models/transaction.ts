@@ -9,6 +9,9 @@ export default class Transaction extends BaseModel {
   declare id: number;
 
   @column()
+  declare invoice: string;
+
+  @column()
   declare orderId: number;
 
   @column()
@@ -18,7 +21,7 @@ export default class Transaction extends BaseModel {
   declare source: 'onsite' | 'online';
 
   @column()
-  declare status: 'pending' | 'order-placed' | 'out-for-delivery' | 'oder-received' | 'delivered';
+  declare status: 'pending' | 'order-placed' | 'out-for-delivery' | 'oder-received' | 'delivered' | 'completed';
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

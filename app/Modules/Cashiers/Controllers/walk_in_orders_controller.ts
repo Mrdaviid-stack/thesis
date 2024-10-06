@@ -4,6 +4,8 @@ import _ from 'lodash'
 import Order from '../../Websites/Models/order.js'
 import OrderProduct from '../../Websites/Models/order_product.js'
 import Payment from '../../Websites/Models/payment.js'
+import { nanoid } from 'nanoid'
+import Transaction from '../../Websites/Models/transaction.js'
 
 export default class WalkInOrdersController {
 
@@ -23,10 +25,11 @@ export default class WalkInOrdersController {
     async saveOrder({request, response}: HttpContext) {
         const data = request.only(['id', 'qty', 'vat', 'price', 'user'])
 
+        console.log(data)
+
         const order = await Order.create({
             userId: data.user,
-            totalAmount: ((data.price * data.qty) / 100 * (100 + data.vat)),
-            status: 'pending',
+            totalAmount: data.price//((data.price * data.qty) / 100 * (100 + data.vat)),
         })
 
         const orderItems = await OrderProduct.create({
@@ -54,7 +57,6 @@ export default class WalkInOrdersController {
             orders: orders.map(order => ({
                 id: order.id,
                 totalAmount: order.totalAmount,
-                status: order.status,
                 orders: order.orderProducts.map(orderProduct => ({
                     quantity: orderProduct.quantity,
                     products: orderProduct.products
@@ -65,9 +67,26 @@ export default class WalkInOrdersController {
 
     async payment({ request, response }: HttpContext) {
         const data = request.body()
+        console.log(data)
+
         const order = await Order.findOrFail(data.orderId)
-        await order.merge({ status: data.status }).save()
-        await Payment.create(data)
+        await order.merge({ userId: data.userId }).save()
+
+        const payment = await Payment.create({
+            orderId: order.id,
+            paymentMethod: data.paymentMethod,
+            amount: data.amount,
+            reference: !data.reference ? 'n/a' : data.reference,
+        })
+
+        await Transaction.create({
+            invoice: `INV-${nanoid()}`,
+            orderId: order.id,
+            paymentId: payment.id,
+            source: 'onsite',
+            status: 'completed',
+        })
+
         return response.status(200).json({
             success: true,
             message: 'Payment Successfully!'

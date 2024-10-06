@@ -4,7 +4,6 @@ import { Formik, Field, Form, FormikProps, FormikHelpers } from 'formik'
 import * as Yup from 'yup'
 import Cookie from 'js-cookie'
 import { requestService } from "~/services/api.service"
-import { router } from "@inertiajs/react"
 import { Toast } from "~/helpers/Toast"
 
 interface IFormValue {
@@ -46,15 +45,22 @@ export default function Login() {
                                                     payload: values
                                                 })
                                                     .then(response => {
+                                                        if (JSON.parse(response.data.user)[0].group === 'Customers') {
+                                                            Toast.fire({
+                                                                icon: 'error',
+                                                                text: 'Invalid Credentials'
+                                                            })
+                                                            return 
+                                                        }
                                                         Cookie.set('token', response.data.token.headers.authorization.toString().split(' ')[1], { expires: 1/24 })
                                                         Cookie.set('user', response.data.user)
-                                                        Toast.fire({
-                                                            icon: 'success',
-                                                            text: `Welcome ${JSON.parse(response.data.user)[0].username}`
-                                                        })
-                                                        if (JSON.parse(response.data.user)[0].groups[0].name !== 'customers')
-                                                            router.visit('/dashboard')
-                                                        else router.visit('/shop')
+                                                        setTimeout(() => {
+                                                            Toast.fire({
+                                                                icon: 'success',
+                                                                text: `Welcome ${JSON.parse(response.data.user)[0].username}`
+                                                            })
+                                                            window.location.href = '/dashboard'
+                                                        }, 1000)
                                                     })
                                                     .catch(error => {
                                                         setError(error.response.data.errors[0].message)

@@ -58,7 +58,7 @@ export default function PermissionsForm({ id, permissions, handleClose }: IGroup
             onSubmit={async (values: IFormData, actions: FormikHelpers<IFormData>) => {
                 actions.setSubmitting(true)
                 requestService({
-                    url: `admin/permissions/${id}`,
+                    url: `/dashboard/admin/permissions/${id}`,
                     method: 'post',
                     payload: {permissions: values.permission.map((perm) => parseInt(perm))}
                 })

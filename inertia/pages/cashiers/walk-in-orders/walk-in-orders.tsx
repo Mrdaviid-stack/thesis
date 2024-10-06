@@ -13,7 +13,7 @@ import _ from 'lodash'
 import { requestService } from "~/services/api.service"
 import { router } from "@inertiajs/react"
 
-import { MySwal, Toast } from "~/helpers/Toast"
+import { MySwal } from "~/helpers/Toast"
 
 interface ProductProps {
     id: number | string;
@@ -58,7 +58,7 @@ export default function WalkInOrders(props: { products: ProductProps[] }) {
 
     const handleOrder = async () => {
         requestService({
-            url: "cashiers/walk-in-orders/orders",
+            url: "/dashboard/cashiers/walk-in-orders/orders",
             method: "post",
             payload: {
                 ...product,
@@ -78,7 +78,7 @@ export default function WalkInOrders(props: { products: ProductProps[] }) {
                     confirmButtonText: "Proceed to billing"
                   }).then((result) => {
                     if (result.isConfirmed) {
-                        router.visit(`/cashiers/walk-in-orders/billing/${response.data.data.orderId}`)
+                        router.visit(`/dashboard/cashiers/walk-in-orders/billing/${response.data.data.orderId}`)
                         // requestService({
                         //     url: url,
                         //     method: 'delete'

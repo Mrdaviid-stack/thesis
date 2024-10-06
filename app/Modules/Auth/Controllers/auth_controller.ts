@@ -34,7 +34,16 @@ export default class AuthController {
             type: 'bearer',
             token,
             allAbilities:  JSON.stringify(await Permission.all()),
-            user: JSON.stringify(userDetails)
+            user: JSON.stringify(userDetails.map(user => ({
+                id: user.id,
+                firstname: user.firstname,
+                lastname: user.lastname,
+                email: user.email,
+                status: user.status,
+                address: user.address,
+                image: user.image,
+                group: user.groups[0].name
+            })))
         })
 
     }

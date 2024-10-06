@@ -16,7 +16,7 @@ export default class extends BaseSchema {
         .onUpdate('RESTRICT')
 
       table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('updated_at').nullable()
     })
   }
 

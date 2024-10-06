@@ -21,9 +21,9 @@ export default class extends BaseSchema {
         .onDelete('CASCADE')
         .onUpdate('RESTRICT')
       table.integer('quantity')
-
+      table.boolean('isReplace').defaultTo(0)
       table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('updated_at').nullable()
     })
   }
 

@@ -28,12 +28,17 @@ const ShopLayout: React.FC<MainLayoutProps> = ({children, title}) => {
     const { user, compare, cart, setCart } = useStore()
     const { modal, onShow, onClose } = useModal()
 
-    console.log(user)
-
     const handleClose = () => {
         onClose()
         window.location.reload()
     }
+
+    const onLogout = () => requestService({url: '/dashboard/logout', method: 'get'}).then(() => {
+        Cookies.remove('token')
+        Cookies.remove('user')
+        location.href = '/shop'
+    })
+
     useEffect(() => {
         let user = Cookies.get('user')
         if (user !== undefined) {
@@ -43,7 +48,6 @@ const ShopLayout: React.FC<MainLayoutProps> = ({children, title}) => {
                 method: 'get',
             })
                 .then(response => {
-                    console.log(response.data.cartItem)
                     if (response.data.cartItem.length === 0) {
                         return setCart([])
                     }
@@ -100,8 +104,15 @@ const ShopLayout: React.FC<MainLayoutProps> = ({children, title}) => {
                                             ?   <li className="nav-item">
                                                     <Link className="nav-link" href="/shop/auth/login">Sign in</Link>
                                                 </li>
-                                            :   <li className="nav-item">
-                                                    <Link className="nav-link" href="/shop/shops/profile"><i className="fa-solid fa-user"></i></Link>
+                                            :   <li className="nav-item dropstart">
+                                                    <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                                                        <i className="fa-solid fa-user"></i>
+                                                    </a>
+                                                    <ul className="dropdown-menu">
+                                                        <li><Link className="dropdown-item" href="/shop/shops/profile">Account</Link></li>
+                                                        <li><a onClick={onLogout} className="dropdown-item" href="#">Sign Out</a></li>
+                                                    </ul>
+
                                                 </li>
                                     }
                                     <li className="nav-item">

@@ -23,9 +23,10 @@ export default class extends BaseSchema {
       table.enu('status', ['pending','order-placed','out-for-delivery','order-received','delivered','completed']).defaultTo('pending')
       table.string('tax')
       table.string('bundle')
+      table.string('invoice')
 
       table.timestamp('created_at')
-      table.timestamp('updated_at')
+      table.timestamp('updated_at').nullable()
     })
   }
 

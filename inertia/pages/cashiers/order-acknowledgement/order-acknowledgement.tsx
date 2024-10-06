@@ -35,9 +35,18 @@ export default function OrderAknowledgements(props: {transactions: any}) {
                                         <br /> 
                                         <small>SKU: {product.products.sku}</small>
                                         <br />
-                                        <small>Payment: {transaction.payment.paymentMethod}</small>
+                                        <small>Invoice: {transaction.invoice}</small>
+                                    </div>
+                                    <div>
+                                    <small>Payment type: {transaction.payment.paymentMethod}</small>
                                         <br />
                                         <small>Reference: {transaction.payment.reference}</small>
+                                        <br />
+                                        <small>Total amount: {transaction.order.totalAmount.toLocaleString()}</small>
+                                        <br />
+                                        <small>Downpayment: {transaction.payment.amount.toLocaleString()}</small>
+                                        <br />
+                                        <small>Balance: {(transaction.order.totalAmount - transaction.payment.amount).toLocaleString()}</small>
                                     </div>
                                     <div>
                                         <h6 className="card-title">Customer Information </h6>
