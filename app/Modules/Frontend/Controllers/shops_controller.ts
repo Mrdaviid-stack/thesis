@@ -8,6 +8,7 @@ import Order from '../../Websites/Models/order.js'
 import OrderProduct from '../../Websites/Models/order_product.js'
 import Payment from '../../Websites/Models/payment.js'
 import Transaction from '../../Websites/Models/transaction.js'
+import env from '#start/env'
 
 import mail from '@adonisjs/mail/services/main'
 import {nanoid} from 'nanoid'
@@ -24,7 +25,7 @@ export default class ShopsController {
 
     async buynow({inertia, params}: HttpContext) {
         const product = await Product.query().where('modelNumber', params.modelNumber).preload('category')
-        return inertia.render('Frontend/products/buy-now', { product:product })
+        return inertia.render('Frontend/products/buy-now', { product: product, asset_url: env.get('ASSET_URL') })
     }
 
     async addToCart({ request, response }: HttpContext) {

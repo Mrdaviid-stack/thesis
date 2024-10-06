@@ -34,7 +34,7 @@ export default class Product extends BaseModel {
   declare storage: string
 
   @column()
-  declare ram: string
+  declare imageUrl: string
 
   @column()
   declare categoryId: number

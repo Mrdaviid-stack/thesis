@@ -24,11 +24,12 @@ interface ProductsProps {
     category: {
         name: string;
     };
+    imageUrl: string;
 }
 
 
-export default function Buynow(props: { product: ProductsProps[] }) {
-
+export default function Buynow(props: { product: ProductsProps[], asset_url: string }) {
+    console.log(props.product)
     const { setCart } = useStore()
     let user = Cookies.get('user')
 
@@ -108,7 +109,7 @@ export default function Buynow(props: { product: ProductsProps[] }) {
             </div>
             <div className="row p-5">
                 <div className="col-5">
-                    IMAGE
+                    <img src={`${props.asset_url}/${props.product[0].imageUrl}`} alt="" width={500} />
                 </div>
                 <div className="col-7">
                     <h2>{ props.product[0].name }</h2>

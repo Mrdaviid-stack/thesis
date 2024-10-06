@@ -3,6 +3,8 @@ import type { HttpContext } from '@adonisjs/core/http'
 
 import Product from "../Models/product.js";
 import Category from '../Models/category.js';
+import app from '@adonisjs/core/services/app';
+import { cuid } from '@adonisjs/core/helpers';
 
 export default class ProductsController extends BaseController {
 
@@ -35,6 +37,15 @@ export default class ProductsController extends BaseController {
 
     async store({ request, response, params }: HttpContext) {
         let data = request.body()
+        const file = request.file('imageUrl')
+
+        if (file) { 
+            const date = new Date()
+            await file!.move(app.makePath(`public/uploads/${date.getFullYear()}/${date.getDate()}/`), {
+                name: `${cuid()}.${file!.extname}`
+            })
+            data['imageUrl'] = file?.filePath!.split('\\').slice(-4).join('\\')    
+        } 
         
         if (params.id) {
             const record = await Product.findOrFail(params.id)

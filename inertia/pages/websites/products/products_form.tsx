@@ -7,6 +7,7 @@ import { Input } from "~/components/Forms/Input"
 import { RichEditor } from "~/components/Forms/RichEditor"
 import { Radio } from "~/components/Forms/Radio"
 import { Select } from "~/components/Forms/Select"
+import { DropZone } from "~/components/Forms/DropZone"
 
 interface ProductsProps {
     id?: number;
@@ -43,6 +44,7 @@ const initialValue = {
     stock: '',
     color: '',
     storage: '',
+    imageUrl: '', 
     categoryId: '',
     status: 'active',
 }
@@ -66,6 +68,7 @@ export default function PagesForm(props: { record: ProductsProps, categories: an
                 label="Products"
                 initialValues={formValue}
                 validationSchema={ProductSchema}
+                attachement={true}
             >   
 
                 <div className="row">
@@ -148,6 +151,12 @@ export default function PagesForm(props: { record: ProductsProps, categories: an
                             label="Category"
                             options={props.categories}
                             className="form-select"
+                        />
+                        <DropZone
+                            id="imageUrl"
+                            name="imageUrl"
+                            label="Product Image"
+                            previewSize="img-thumb"
                         />
                     </div>
                 </div>
